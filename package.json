@@ -12,6 +12,8 @@
     "clean:js": "rm -f $npm_package_config_output_js/*",
     "watch": "npm run serve & npm run watch:js",
     "watch:js": "watchify src/scripts/app.js --outfile 'exorcist $npm_package_config_output_js/app.js.map > $npm_package_config_output_js/app.js' --debug --verbose",
+    "build": "npm run build:js",
+    "build:js": "NODE_ENV=production browserify --global-transform envify --entry src/scripts/app.js | uglifyjs --compress warnings=false --mangle > $npm_package_config_output_js/app.js",
     "serve": "browser-sync start --server --serveStatic $npm_package_config_output_root/ --files $npm_package_config_output_root/"
   },
   "devDependencies": {
@@ -23,6 +25,7 @@
     "browser-sync": "^2.18.2",
     "browserify": "^13.1.1",
     "chart.js": "^2.4.0",
+    "envify": "^4.0.0",
     "eslint": "^3.11.0",
     "eslint-config-vue": "^2.0.1",
     "eslint-plugin-html": "^1.7.0",
